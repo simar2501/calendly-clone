@@ -1,4 +1,6 @@
 from fastapi import FastAPI
+from .models import User
+from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
 from .database import engine, Base
 from .routes import event_types, availability, bookings, meetings, contacts, SingleUseLink
