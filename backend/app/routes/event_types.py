@@ -9,13 +9,13 @@ import os
 router = APIRouter()
 DEFAULT_USER_ID = int(os.getenv("DEFAULT_USER_ID", 1))
 
-@router.get("/", response_model=List[EventTypeOut])
+@router.get("", response_model=List[EventTypeOut])
 def get_event_types(db: Session = Depends(get_db)):
     return db.query(EventType).filter(
         EventType.user_id == DEFAULT_USER_ID
     ).all()
 
-@router.post("/", response_model=EventTypeOut)
+@router.post("", response_model=EventTypeOut)
 def create_event_type(data: EventTypeCreate, db: Session = Depends(get_db)):
     existing = db.query(EventType).filter(EventType.slug == data.slug).first()
     if existing:
