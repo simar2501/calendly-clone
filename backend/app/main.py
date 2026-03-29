@@ -7,15 +7,18 @@ from . import models
 
 Base.metadata.create_all(bind=engine)
 
-# REMOVE redirect_slashes=False
 app = FastAPI(title="Schedulr API")
+
 app.add_middleware(
     CORSMiddleware,
-   allow_origins=[
-    "http://localhost:3000",
-    "http://localhost:3001",
-    "https://your-frontend.vercel.app",  # ← add after you get Vercel URL
-],
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:3001",
+        "https://calendly-clone-7d2t.vercel.app",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.include_router(event_types.router, prefix="/api/event-types", tags=["Event Types"])
