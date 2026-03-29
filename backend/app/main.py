@@ -10,6 +10,18 @@ from . import models
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Schedulr API")
+def create_default_user():
+    db = next(get_db())
+    user = db.query(User).filter(User.id == 1).first()
+    if not user:
+        new_user = User(
+            id=1,
+            name="John Doe",
+            email="john@example.com",
+            timezone="UTC"
+        )
+        db.add(new_user)
+        db.commit()
 
 app.add_middleware(
     CORSMiddleware,
